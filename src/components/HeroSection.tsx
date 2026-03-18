@@ -62,7 +62,7 @@ export const HeroSection = () => {
               transition={{ duration: 0.7, ease }}
               className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-gradient"
             >
-              CAMALY<span className="text-foreground">.</span>DIGITAL
+              CAMALY <span className="text-foreground">DIGITAL</span>
             </motion.h2>
           </motion.div>
         )}
