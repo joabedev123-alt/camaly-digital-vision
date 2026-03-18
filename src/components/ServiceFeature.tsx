@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import { FloatingParticles } from "./FloatingParticles";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -21,6 +22,8 @@ export const ServiceFeature = ({
 }: ServiceFeatureProps) => {
   return (
     <section className="relative py-24 md:py-32 overflow-hidden">
+      <FloatingParticles count={8} />
+
       <div className={`container mx-auto px-6 md:px-12 flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12 md:gap-20`}>
         {/* Text */}
         <div className="flex-1 max-w-lg">
@@ -62,18 +65,20 @@ export const ServiceFeature = ({
           whileInView={{ opacity: 1, scale: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease, delay: 0.2 }}
-          className="flex-1 relative"
+          className="flex-1 relative group"
         >
-          <div className="relative rounded-2xl overflow-hidden border border-border/30">
+          <div className="relative rounded-2xl overflow-hidden border border-border/30 group-hover:border-primary/20 transition-colors duration-500">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
             <img
               src={image}
               alt={title}
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.03]"
             />
+            {/* Hover glow overlay */}
+            <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500" />
           </div>
           {/* Glow behind */}
-          <div className="absolute -inset-4 bg-primary/5 blur-[60px] rounded-full -z-10" />
+          <div className="absolute -inset-4 bg-primary/5 blur-[60px] rounded-full -z-10 group-hover:bg-primary/10 transition-colors duration-500" />
         </motion.div>
       </div>
     </section>

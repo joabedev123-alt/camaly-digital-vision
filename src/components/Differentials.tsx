@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Sparkles, Target, Zap, Crown, Users, Wrench } from "lucide-react";
+import { FloatingParticles } from "./FloatingParticles";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -15,6 +16,8 @@ const items = [
 export const Differentials = () => {
   return (
     <section id="diferenciais" className="relative py-24 md:py-32">
+      <FloatingParticles count={10} />
+
       <div className="container mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -38,10 +41,11 @@ export const Differentials = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, ease, delay: i * 0.06 }}
-              className="flex gap-4 p-6 rounded-2xl bg-card/30 border border-border/20 hover:border-primary/20 transition-all duration-500"
+              transition={{ duration: 0.6, ease, delay: i * 0.08 }}
+              whileHover={{ scale: 1.02, borderColor: "hsla(162, 100%, 42%, 0.3)" }}
+              className="flex gap-4 p-6 rounded-2xl bg-card/30 border border-border/20 transition-all duration-500 group"
             >
-              <div className="shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <div className="shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
                 <item.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
               </div>
               <div>

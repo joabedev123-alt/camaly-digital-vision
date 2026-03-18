@@ -1,25 +1,48 @@
 import { motion } from "framer-motion";
+import ctaVideo from "@/assets/cta-video.mp4.asset.json";
 import chameleonEye from "@/assets/chameleon-eye.png";
+import { FloatingParticles } from "./FloatingParticles";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export const FinalCTA = () => {
   return (
     <section id="contato" className="relative py-32 md:py-44 overflow-hidden">
-      {/* Deeper background */}
-      <div className="absolute inset-0 bg-[hsl(210,40%,2%)]" />
+      {/* Video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        src={ctaVideo.url}
+      />
+
+      {/* Dark overlays */}
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/80" />
 
       {/* Chameleon eye background */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <img
+        <motion.img
           src={chameleonEye}
           alt=""
-          className="w-[700px] h-[700px] object-contain opacity-[0.08]"
+          className="w-[700px] h-[700px] object-contain opacity-[0.06]"
+          animate={{ scale: [1, 1.05, 1], rotate: [0, 1, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
-      {/* Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(162,100%,42%,0.04)_0%,transparent_60%)]" />
+      {/* Floating particles */}
+      <FloatingParticles count={25} />
+
+      {/* Glow accents */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(162,100%,42%,0.06)_0%,transparent_60%)]" />
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
 
       <div className="relative z-10 container mx-auto px-6 md:px-12 text-center max-w-3xl">
         <motion.h2
@@ -62,7 +85,7 @@ export const FinalCTA = () => {
           </a>
           <a
             href="#servicos"
-            className="px-10 py-4 rounded-lg border border-border/50 text-foreground font-display font-semibold text-lg hover:border-primary/30 transition-all duration-300"
+            className="px-10 py-4 rounded-lg border border-border/50 text-foreground font-display font-semibold text-lg hover:border-primary/30 transition-all duration-300 backdrop-blur-sm"
           >
             Solicitar projeto
           </a>

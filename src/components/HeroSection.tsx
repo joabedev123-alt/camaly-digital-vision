@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import heroVideo from "@/assets/hero-video.mp4.asset.json";
 import heroChameleon from "@/assets/hero-chameleon.png";
+import { FloatingParticles } from "./FloatingParticles";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -21,25 +23,42 @@ const metrics = [
 
 export const HeroSection = () => {
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden noise-overlay">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(200,45%,4%)] to-background" />
+    <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        src={heroVideo.url}
+      />
+
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/40 to-transparent" />
+
+      {/* Noise texture */}
+      <div className="absolute inset-0 noise-overlay" />
+
+      {/* Floating particles */}
+      <FloatingParticles count={30} />
 
       {/* Glow orbs */}
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] animate-pulse-glow" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] animate-pulse-glow" style={{ animationDelay: "2s" }} />
 
-      {/* Chameleon hero image */}
+      {/* Chameleon hero image — larger and more dominant */}
       <motion.div
         initial={{ opacity: 0, scale: 1.1, x: 100 }}
         animate={{ opacity: 1, scale: 1, x: 0 }}
         transition={{ duration: 1.4, ease, delay: 0.3 }}
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-[55%] max-w-[900px] hidden md:block z-[2]"
+        className="absolute right-[-5%] top-1/2 -translate-y-1/2 w-[65%] max-w-[1100px] hidden md:block z-[2]"
       >
         <img
           src={heroChameleon}
           alt="Camaleão digital emergindo de um planeta"
-          className="w-full h-auto object-contain drop-shadow-2xl"
+          className="w-full h-auto object-contain drop-shadow-[0_0_60px_hsla(162,100%,42%,0.3)]"
         />
       </motion.div>
 
@@ -53,10 +72,10 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, ease, delay: 0.1 }}
             className="flex flex-wrap gap-2 mb-8"
           >
-            {services.map((s, i) => (
+            {services.map((s) => (
               <span
                 key={s}
-                className="text-xs font-display tracking-wider uppercase text-muted-foreground border border-border/50 px-3 py-1.5 rounded-full"
+                className="text-xs font-display tracking-wider uppercase text-muted-foreground border border-border/50 px-3 py-1.5 rounded-full backdrop-blur-sm"
               >
                 {s}
               </span>
@@ -103,7 +122,7 @@ export const HeroSection = () => {
             </a>
             <a
               href="#projetos"
-              className="px-8 py-4 rounded-lg border border-border/50 text-foreground font-display font-semibold text-base hover:border-primary/30 hover:text-primary transition-all duration-300"
+              className="px-8 py-4 rounded-lg border border-border/50 text-foreground font-display font-semibold text-base hover:border-primary/30 hover:text-primary transition-all duration-300 backdrop-blur-sm"
             >
               Ver projetos
             </a>
@@ -120,7 +139,7 @@ export const HeroSection = () => {
           <img
             src={heroChameleon}
             alt="Camaleão digital"
-            className="w-full max-w-md mx-auto"
+            className="w-full max-w-md mx-auto drop-shadow-[0_0_40px_hsla(162,100%,42%,0.25)]"
           />
         </motion.div>
 
