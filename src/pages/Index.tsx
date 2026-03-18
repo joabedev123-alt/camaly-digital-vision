@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
+import { HeroContent } from "@/components/HeroContent";
 import { ImpactBlock } from "@/components/ImpactBlock";
 import { ServiceFeature } from "@/components/ServiceFeature";
 import { ServicesGrid } from "@/components/ServicesGrid";
@@ -21,6 +22,7 @@ const Index = () => {
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Header />
       <HeroSection />
+      <HeroContent />
       <ImpactBlock />
 
       <ServiceFeature
