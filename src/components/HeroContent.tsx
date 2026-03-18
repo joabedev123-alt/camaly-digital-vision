@@ -1,5 +1,4 @@
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import heroChameleon from "@/assets/hero-chameleon.png";
 import { FloatingParticles } from "./FloatingParticles";
 
@@ -21,79 +20,6 @@ const metrics = [
   { value: "100%", label: "Atendimento estratégico" },
 ];
 
-const Chameleon3D = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { damping: 30, stiffness: 150 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), { damping: 30, stiffness: 150 });
-  const translateZ = useSpring(useTransform(mouseX, [-0.5, 0, 0.5], [-20, 0, -20]), { damping: 30, stiffness: 150 });
-
-  useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      mouseX.set((e.clientX - centerX) / rect.width);
-      mouseY.set((e.clientY - centerY) / rect.height);
-    };
-    window.addEventListener("mousemove", handleMouse);
-    return () => window.removeEventListener("mousemove", handleMouse);
-  }, [mouseX, mouseY]);
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, scale: 1.1, x: 100 }}
-      whileInView={{ opacity: 1, scale: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1.4, ease, delay: 0.2 }}
-      className="absolute right-[-5%] top-1/2 -translate-y-1/2 w-[65%] max-w-[1100px] hidden md:block z-[2]"
-      style={{ perspective: 1200 }}
-    >
-      <motion.div
-        style={{
-          rotateX,
-          rotateY,
-          translateZ,
-          transformStyle: "preserve-3d",
-        }}
-      >
-        {/* Glow layer behind */}
-        <motion.div
-          className="absolute inset-0 rounded-full blur-[80px] bg-primary/20"
-          style={{ transform: "translateZ(-60px) scale(0.7)" }}
-          animate={{ opacity: [0.15, 0.3, 0.15], scale: [0.65, 0.75, 0.65] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        {/* Chameleon image */}
-        <motion.img
-          src={heroChameleon}
-          alt="Camaleão digital emergindo de um planeta"
-          className="w-full h-auto object-contain"
-          style={{
-            filter: "drop-shadow(0 0 80px hsla(162, 100%, 42%, 0.35)) drop-shadow(0 20px 60px hsla(200, 80%, 20%, 0.5))",
-            transform: "translateZ(40px)",
-          }}
-          animate={{ y: [0, -12, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        {/* Reflection/light layer in front */}
-        <motion.div
-          className="absolute top-[15%] right-[20%] w-32 h-32 rounded-full bg-accent/10 blur-[40px]"
-          style={{ transform: "translateZ(80px)" }}
-          animate={{ opacity: [0.1, 0.25, 0.1], x: [0, 15, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
-    </motion.div>
-  );
-};
-
 export const HeroContent = () => {
   return (
     <section className="relative py-24 md:py-32 overflow-hidden noise-overlay">
@@ -106,8 +32,20 @@ export const HeroContent = () => {
 
       <FloatingParticles count={15} />
 
-      {/* 3D Chameleon */}
-      <Chameleon3D />
+      {/* Chameleon — large and dominant */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.1, x: 100 }}
+        whileInView={{ opacity: 1, scale: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.4, ease, delay: 0.2 }}
+        className="absolute right-[-5%] top-1/2 -translate-y-1/2 w-[65%] max-w-[1100px] hidden md:block z-[2]"
+      >
+        <img
+          src={heroChameleon}
+          alt="Camaleão digital emergindo de um planeta"
+          className="w-full h-auto object-contain drop-shadow-[0_0_60px_hsla(162,100%,42%,0.3)]"
+        />
+      </motion.div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 md:px-12">
