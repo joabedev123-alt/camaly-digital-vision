@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import heroVideo from "@/assets/hero-video.mp4.asset.json";
-import heroChameleon3d from "@/assets/hero-chameleon-3d.png";
 import { FloatingParticles } from "./FloatingParticles";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -9,7 +8,6 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export const HeroSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showBrand, setShowBrand] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const video = videoRef.current;
@@ -27,19 +25,9 @@ export const HeroSection = () => {
     return () => video.removeEventListener("ended", handleEnded);
   }, []);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      setMousePos({ x, y });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
-    <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden" style={{ perspective: "1200px" }}>
-      {/* Video background */}
+    <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Video background — no loop, controlled manually */}
       <video
         ref={videoRef}
         autoPlay
@@ -55,63 +43,7 @@ export const HeroSection = () => {
 
       <FloatingParticles count={20} />
 
-      {/* Glow orbs for 3D depth */}
       <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px] animate-pulse-glow" />
-      <div
-        className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-accent/8 blur-[100px] animate-pulse-glow"
-        style={{ animationDelay: "1.5s" }}
-      />
-
-      {/* 3D Chameleon with parallax */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8, x: 150 }}
-        animate={{ opacity: 1, scale: 1, x: 0 }}
-        transition={{ duration: 1.8, ease, delay: 0.5 }}
-        className="absolute right-[-3%] bottom-[5%] w-[55%] max-w-[900px] z-[5] hidden md:block"
-        style={{
-          transformStyle: "preserve-3d",
-          transform: `
-            rotateY(${mousePos.x * -8}deg)
-            rotateX(${mousePos.y * 5}deg)
-            translateX(${mousePos.x * -15}px)
-            translateY(${mousePos.y * -10}px)
-          `,
-          transition: "transform 0.15s ease-out",
-        }}
-      >
-        <img
-          src={heroChameleon3d}
-          alt="Camaleão digital 3D"
-          className="w-full h-auto object-contain"
-          style={{
-            filter: "drop-shadow(0 0 60px hsla(162, 100%, 42%, 0.35)) drop-shadow(0 20px 40px hsla(0, 0%, 0%, 0.5))",
-          }}
-        />
-        {/* Reflection / ground glow */}
-        <div
-          className="absolute bottom-[-10%] left-[10%] right-[10%] h-[30%] rounded-full blur-[40px]"
-          style={{
-            background: "radial-gradient(ellipse, hsla(162, 100%, 42%, 0.15), transparent 70%)",
-          }}
-        />
-      </motion.div>
-
-      {/* Mobile chameleon */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.2, ease, delay: 0.5 }}
-        className="absolute bottom-[8%] right-[-5%] w-[75%] z-[5] md:hidden"
-      >
-        <img
-          src={heroChameleon3d}
-          alt="Camaleão digital 3D"
-          className="w-full h-auto object-contain"
-          style={{
-            filter: "drop-shadow(0 0 30px hsla(162, 100%, 42%, 0.25)) drop-shadow(0 10px 20px hsla(0, 0%, 0%, 0.4))",
-          }}
-        />
-      </motion.div>
 
       {/* Brand flash between loops */}
       <AnimatePresence>
