@@ -22,16 +22,6 @@ export const FinalCTA = () => {
       <div className="absolute inset-0 bg-background/70" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/80" />
 
-      {/* Chameleon eye background */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.img
-          src={chameleonEye}
-          alt=""
-          className="w-[700px] h-[700px] object-contain opacity-[0.06]"
-          animate={{ scale: [1, 1.05, 1], rotate: [0, 1, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
 
       {/* Floating particles */}
       <FloatingParticles count={25} />
