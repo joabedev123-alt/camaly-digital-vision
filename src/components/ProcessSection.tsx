@@ -32,8 +32,15 @@ export const ProcessSection = () => {
         </motion.div>
 
         <div className="relative max-w-2xl mx-auto">
-          {/* Vertical line */}
-          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
+          {/* Vertical line with animated glow */}
+          <motion.div
+            className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease }}
+            style={{ transformOrigin: "top" }}
+          />
 
           <div className="space-y-12">
             {steps.map((step, i) => (
@@ -42,14 +49,18 @@ export const ProcessSection = () => {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, ease, delay: i * 0.08 }}
-                className="relative flex gap-6 md:gap-8 items-start pl-2"
+                transition={{ duration: 0.6, ease, delay: i * 0.1 }}
+                className="relative flex gap-6 md:gap-8 items-start pl-2 group"
               >
                 {/* Node */}
-                <div className="relative z-10 shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-card border border-border/30 flex items-center justify-center">
+                <div className="relative z-10 shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-card border border-border/30 flex items-center justify-center group-hover:border-primary/30 transition-colors duration-300">
                   <step.icon className="w-5 h-5 md:w-6 md:h-6 text-primary" strokeWidth={1.5} />
                   {/* Glow dot */}
-                  <div className="absolute -left-[5px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-primary glow-primary" />
+                  <motion.div
+                    className="absolute -left-[5px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-primary glow-primary"
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                  />
                 </div>
 
                 <div className="pt-2 md:pt-4">
