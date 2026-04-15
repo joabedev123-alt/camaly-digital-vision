@@ -43,6 +43,11 @@
   }
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 8rem; /* compensar header h-32 */
+  }
+
+  section[id] {
+    scroll-margin-top: 8rem;
   }
 }
 

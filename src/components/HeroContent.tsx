@@ -1,153 +1,110 @@
 import { motion } from "framer-motion";
-import heroChameleon from "@/assets/hero-chameleon.png";
+import { TrendingUp, Globe, Users, Award } from "lucide-react";
 import { FloatingParticles } from "./FloatingParticles";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const services = [
-  "Sites Institucionais",
-  "Landing Pages",
-  "Sistemas Web",
-  "Experiências Imersivas",
-  "SEO",
-  "UI/UX",
-];
-
 const metrics = [
-  { value: "120+", label: "Projetos entregues" },
-  { value: "98.4%", label: "Precisão em UI/UX" },
-  { value: "3x", label: "Mais conversão" },
-  { value: "100%", label: "Atendimento estratégico" },
+  {
+    icon: TrendingUp,
+    value: "3x",
+    label: "Mais conversão",
+    desc: "comparado à média do mercado",
+  },
+  {
+    icon: Globe,
+    value: "120+",
+    label: "Projetos entregues",
+    desc: "para empresas de todo o Brasil",
+  },
+  {
+    icon: Users,
+    value: "98%",
+    label: "Satisfação dos clientes",
+    desc: "que indicam para outros",
+  },
+  {
+    icon: Award,
+    value: "100%",
+    label: "Atendimento estratégico",
+    desc: "do início ao resultado",
+  },
 ];
 
 export const HeroContent = () => {
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden noise-overlay">
+    <section
+      id="diferenciais-hero"
+      className="relative py-24 md:py-32 overflow-hidden noise-overlay"
+    >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(200,45%,4%)] to-background" />
-
-      {/* Glow orbs */}
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] animate-pulse-glow" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] animate-pulse-glow" style={{ animationDelay: "2s" }} />
+      <div
+        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px] animate-pulse-glow"
+        style={{ animationDelay: "2s" }}
+      />
+      <FloatingParticles count={12} />
 
-      <FloatingParticles count={15} />
+      <div className="relative z-10 container mx-auto px-6 md:px-16">
 
-      {/* Chameleon — large and dominant */}
-      <motion.div
-        initial={{ opacity: 0, scale: 1.1, x: 100 }}
-        whileInView={{ opacity: 1, scale: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.4, ease, delay: 0.2 }}
-        className="absolute right-[-5%] top-1/2 -translate-y-1/2 w-[65%] max-w-[1100px] hidden md:block z-[2]"
-      >
-        <img
-          src={heroChameleon}
-          alt="Camaleão digital emergindo de um planeta"
-          className="w-full h-auto object-contain drop-shadow-[0_0_60px_hsla(162,100%,42%,0.3)]"
-        />
-      </motion.div>
-
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 md:px-12">
-        <div className="max-w-2xl">
-          {/* Service tags */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease }}
-            className="flex flex-wrap gap-2 mb-8"
-          >
-            {services.map((s) => (
-              <span
-                key={s}
-                className="text-xs font-display tracking-wider uppercase text-muted-foreground border border-border/50 px-3 py-1.5 rounded-full backdrop-blur-sm"
-              >
-                {s}
-              </span>
-            ))}
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease, delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter leading-[0.95] text-foreground"
-            style={{ textWrap: "balance" } as React.CSSProperties}
-          >
-            Sua presença digital precisa causar{" "}
-            <span className="text-gradient">impacto de verdade</span>
-          </motion.h1>
-
-          {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease, delay: 0.2 }}
-            className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-lg"
-          >
-            Criamos sites, landing pages e sistemas com design imersivo, estratégia
-            comercial e tecnologia moderna para transformar marcas em experiências memoráveis.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease, delay: 0.3 }}
-            className="mt-10 flex flex-wrap gap-4"
-          >
-            <a
-              href="https://wa.me/5500000000000"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 rounded-lg bg-primary text-primary-foreground font-display font-semibold text-base glow-primary hover:scale-105 transition-transform duration-200"
-            >
-              Falar no WhatsApp
-            </a>
-            <a
-              href="#projetos"
-              className="px-8 py-4 rounded-lg border border-border/50 text-foreground font-display font-semibold text-base hover:border-primary/30 hover:text-primary transition-all duration-300 backdrop-blur-sm"
-            >
-              Ver projetos
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Mobile chameleon */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease, delay: 0.3 }}
-          className="mt-12 md:hidden"
-        >
-          <img
-            src={heroChameleon}
-            alt="Camaleão digital"
-            className="w-full max-w-md mx-auto drop-shadow-[0_0_40px_hsla(162,100%,42%,0.25)]"
-          />
-        </motion.div>
-
-        {/* Metrics */}
+        {/* Título da seção */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease, delay: 0.4 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-2xl"
+          transition={{ duration: 0.8, ease }}
+          className="mb-16 text-center"
         >
-          {metrics.map((m) => (
-            <div key={m.label}>
-              <div className="font-display text-2xl md:text-3xl font-bold text-gradient">{m.value}</div>
-              <div className="text-xs text-muted-foreground mt-1">{m.label}</div>
-            </div>
-          ))}
+          <span className="inline-block text-xs font-display uppercase tracking-[0.25em] text-primary border border-primary/30 px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
+            Por que a Camaly?
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-foreground">
+            Números que provam{" "}
+            <span className="text-gradient">nosso resultado</span>
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground max-w-xl mx-auto">
+            Não trabalhamos com achismo. Cada projeto é orientado por dados,
+            estratégia e design que converte.
+          </p>
         </motion.div>
+
+        {/* Cards de métricas */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {metrics.map((m, i) => {
+            const Icon = m.icon;
+            return (
+              <motion.div
+                key={m.label}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease, delay: i * 0.1 }}
+                className="group relative rounded-2xl border border-border/40 bg-card/30 backdrop-blur-sm p-8 flex flex-col gap-4 hover:border-primary/30 hover:bg-card/50 transition-all duration-400"
+              >
+                {/* Glow no hover */}
+                <div className="absolute inset-0 rounded-2xl bg-primary/0 group-hover:bg-primary/5 transition-all duration-400" />
+
+                <div className="relative z-10 flex flex-col gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="font-display text-4xl font-bold text-gradient">
+                    {m.value}
+                  </div>
+                  <div>
+                    <div className="font-display text-base font-semibold text-foreground">
+                      {m.label}
+                    </div>
+                    <div className="text-sm text-muted-foreground mt-1">
+                      {m.desc}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
