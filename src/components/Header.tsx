@@ -57,7 +57,7 @@ export const Header = () => {
           <img
             src="/Logo frente 03-Photoroom.png"
             alt="Camaly Digital"
-            className="h-14 md:h-20 w-auto object-contain"
+            className="h-11 sm:h-14 md:h-20 w-auto object-contain"
           />
         </a>
 

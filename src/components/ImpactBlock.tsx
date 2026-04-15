@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -18,12 +18,15 @@ const STAR_COLORS = [
 const StarField = () => {
   /* Gera estrelas uma vez com posições estáveis */
   const stars = useMemo(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const count = isMobile ? 80 : 160;
+    
     const rng = (seed: number) => {
       let s = seed;
       return () => { s = (s * 16807 + 0) % 2147483647; return (s - 1) / 2147483646; };
     };
     const rand = rng(42);
-    return Array.from({ length: 160 }, (_, i) => ({
+    return Array.from({ length: count }, (_, i) => ({
       id:       i,
       x:        rand() * 100,           // % da largura
       y:        rand() * 100,           // % da altura
@@ -209,6 +212,14 @@ const GlobeLines = () => {
 export const ImpactBlock = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const inView     = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <section
@@ -231,16 +242,16 @@ export const ImpactBlock = () => {
       {/* ════════════════════════════════
           GLOBO — entra primeiro, grande
          ════════════════════════════════ */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none scale-75 md:scale-100">
         {/* Halo externo grande */}
         <motion.div
           className="absolute rounded-full"
           initial={{ opacity: 0, scale: 0.4 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          animate={inView ? { opacity: 1, scale: isMobile ? 0.6 : 1 } : {}}
           transition={{ duration: 1.4, ease }}
           style={{
-            width:  760,
-            height: 760,
+            width:  isMobile ? "90vw" : 760,
+            height: isMobile ? "90vw" : 760,
             background: "radial-gradient(circle, hsla(162,100%,42%,0.12) 0%, hsla(210,100%,60%,0.06) 50%, transparent 70%)",
             filter: "blur(30px)",
           }}
@@ -250,11 +261,11 @@ export const ImpactBlock = () => {
         <motion.div
           className="absolute rounded-full"
           initial={{ opacity: 0, scale: 0.3 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          animate={inView ? { opacity: 1, scale: isMobile ? 0.7 : 1 } : {}}
           transition={{ duration: 1.6, ease, delay: 0.2 }}
           style={{
-            width:  640,
-            height: 640,
+            width:  isMobile ? "80vw" : 640,
+            height: isMobile ? "80vw" : 640,
             background: "radial-gradient(circle, hsla(28,100%,55%,0.08) 0%, transparent 65%)",
             filter: "blur(20px)",
           }}
@@ -264,7 +275,7 @@ export const ImpactBlock = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.25, rotate: -40 }}
           animate={inView
-            ? { opacity: 1, scale: 1, rotate: 360 }
+            ? { opacity: 1, scale: isMobile ? 0.65 : 1, rotate: 360 }
             : {}
           }
           transition={{
@@ -282,7 +293,7 @@ export const ImpactBlock = () => {
           className="absolute"
           initial={{ opacity: 0, scale: 0.2 }}
           animate={inView
-            ? { opacity: 0.18, scale: 1.18, rotate: -360 }
+            ? { opacity: 0.18, scale: isMobile ? 0.75 : 1.18, rotate: -360 }
             : {}
           }
           transition={{
@@ -322,7 +333,7 @@ export const ImpactBlock = () => {
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.9, ease, delay: 1.0 }}
-          className="font-display text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-tight"
+          className="font-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-tight"
         >
           <span
             style={{

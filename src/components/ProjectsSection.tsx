@@ -25,7 +25,7 @@ export const ProjectsSection = () => {
           <span className="inline-block text-xs font-display uppercase tracking-[0.2em] text-primary mb-4">
             Portfólio
           </span>
-          <h2 className="font-display text-3xl md:text-5xl font-semibold tracking-tighter text-foreground">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tighter text-foreground">
             Projetos que transformam negócios
           </h2>
         </motion.div>
