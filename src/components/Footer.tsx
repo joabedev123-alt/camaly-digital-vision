@@ -17,8 +17,12 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
-            <a href="#inicio" className="font-display text-xl font-bold tracking-tight text-foreground">
-              Camaly<span className="text-primary">.</span>
+            <a href="#inicio" className="flex items-center">
+              <img
+                src="/Logo frente 03-Photoroom.png"
+                alt="Camaly Digital"
+                className="h-16 w-auto object-contain"
+              />
             </a>
             <p className="mt-4 text-sm text-muted-foreground max-w-xs leading-relaxed">
               Estratégia, design e tecnologia para marcas que querem presença digital

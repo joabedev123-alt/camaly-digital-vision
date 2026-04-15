@@ -17,28 +17,48 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      
+      // Define se está no topo para o estilo glass/transparente
+      setScrolled(currentScrollPos > 50);
+
+      // Lógica de visibilidade: 
+      // Mostra se estiver rolando para cima ou se estiver no topo (threshold de 10px)
+      // Esconde se estiver rolando para baixo e já passou do cabeçalho
+      const isVisible = prevScrollPos > currentScrollPos || currentScrollPos < 10;
+      
+      setVisible(isVisible);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
 
   return (
     <>
       <motion.header
         initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease }}
+        animate={{ y: visible || mobileOpen ? 0 : -120, opacity: visible || mobileOpen ? 1 : 0 }}
+        transition={{ duration: 0.5, ease }}
         className={`fixed top-0 left-0 right-0 z-50 h-20 md:h-28 px-4 md:px-12 flex items-center justify-between transition-all duration-500 ${
           scrolled
             ? "glass"
             : "bg-transparent"
         }`}
       >
-        <a href="#inicio" className="font-display text-xl md:text-2xl font-bold tracking-tight text-foreground">
-          Camaly<span className="text-primary">.</span>
+        <a href="#inicio" className="flex items-center">
+          <img
+            src="/Logo frente 03-Photoroom.png"
+            alt="Camaly Digital"
+            className="h-14 md:h-20 w-auto object-contain"
+          />
         </a>
 
         <nav className="hidden lg:flex items-center gap-10">

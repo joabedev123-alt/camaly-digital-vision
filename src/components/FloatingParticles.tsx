@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 interface FloatingParticlesProps {
   count?: number;
@@ -7,9 +7,24 @@ interface FloatingParticlesProps {
 }
 
 export const FloatingParticles = ({ count = 20, className = "" }: FloatingParticlesProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const actualCount = useMemo(() => {
+    return isMobile ? Math.max(5, Math.floor(count / 2.5)) : count;
+  }, [count, isMobile]);
+
   const particles = useMemo(
     () =>
-      Array.from({ length: count }, (_, i) => ({
+      Array.from({ length: actualCount }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
@@ -18,7 +33,7 @@ export const FloatingParticles = ({ count = 20, className = "" }: FloatingPartic
         delay: Math.random() * 4,
         opacity: Math.random() * 0.4 + 0.1,
       })),
-    [count]
+    [actualCount]
   );
 
   return (

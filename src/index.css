@@ -40,6 +40,13 @@
   }
   body {
     @apply bg-background text-foreground font-body antialiased;
+  @media (pointer: fine) {
+    body {
+      cursor: none;
+    }
+    *, *::before, *::after {
+      cursor: none !important;
+    }
   }
   html {
     scroll-behavior: smooth;

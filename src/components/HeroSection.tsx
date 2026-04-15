@@ -2,11 +2,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { WhatsAppIconFlat } from "./WhatsAppIcon";
 import heroChameleon from "@/assets/hero-chameleon.png";
+import logoFrente from "@/assets/Logo frente 03-Photoroom.png";
 import { FloatingParticles } from "./FloatingParticles";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const INTRO_MS   = 6300;
+const LOGO_MS    = 1000;  // fixação da logo (ms) — total ~2s com os fades
 const CONTENT_MS = 6800;
 
 /** Sequência de cores que passa em CADA letra do título */
@@ -33,7 +35,7 @@ const H1_STYLE = { fontSize: "clamp(1.8rem, 4.5vw, 4rem)", margin: 0 } as const;
 
 export const HeroSection = () => {
   const [replay,      setReplay     ] = useState(0);
-  const [phase,       setPhase      ] = useState<"intro" | "content">("intro");
+  const [phase,       setPhase      ] = useState<"intro" | "logo" | "content">("intro");
   const [showShimmer, setShowShimmer] = useState(false);
 
   const sectionRef  = useRef<HTMLElement>(null);
@@ -46,17 +48,24 @@ export const HeroSection = () => {
     setPhase("intro");
     setShowShimmer(false);
 
+    // Após intro do camaleão → mostra a logo por 2s
+    const logoTimer = setTimeout(() => {
+      setPhase("logo");
+    }, INTRO_MS);
+
+    // Após 2s da logo → mostra conteúdo + shimmer
     const contentTimer = setTimeout(() => {
       setPhase("content");
       setShowShimmer(true);
-    }, CONTENT_MS);
+    }, INTRO_MS + LOGO_MS);
 
     const shimmerTimer = setTimeout(
       () => setShowShimmer(false),
-      CONTENT_MS + SHIMMER_MS,
+      INTRO_MS + LOGO_MS + SHIMMER_MS,
     );
 
     return () => {
+      clearTimeout(logoTimer);
       clearTimeout(contentTimer);
       clearTimeout(shimmerTimer);
     };
@@ -151,7 +160,33 @@ export const HeroSection = () => {
       </AnimatePresence>
 
       {/* ══════════════════════════════════
-          FASE 2 — CONTEÚDO PRINCIPAL
+          FASE 2 — LOGO CAMALY
+         ══════════════════════════════════ */}
+      <AnimatePresence mode="wait">
+        {phase === "logo" && (
+          <motion.div
+            key={`logo-${replay}`}
+            className="absolute inset-0 z-20 bg-background flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease }}
+          >
+            <motion.img
+              src={logoFrente}
+              alt="Camaly Digital"
+              className="w-[min(95vw,900px)] md:w-[min(85vw,1100px)] h-auto object-contain select-none"
+              initial={{ scale: 0.82, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 1.06, opacity: 0 }}
+              transition={{ duration: 0.4, ease }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ══════════════════════════════════
+          FASE 3 — CONTEÚDO PRINCIPAL
          ══════════════════════════════════ */}
       <AnimatePresence mode="wait">
         {phase === "content" && (
