@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { MessageCircle, Instagram, Mail } from "lucide-react";
 
 const menuLinks = [
@@ -79,8 +80,29 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border/10 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Camaly Digital. Todos os direitos reservados.
+        <div className="mt-12 pt-8 border-t border-border/10 text-center flex flex-col items-center gap-4">
+          <div className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} Camaly Digital. Todos os direitos reservados.
+          </div>
+          <a 
+            href="https://camaly.com.br/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="group flex items-center gap-1.5 text-sm font-display font-medium text-muted-foreground hover:text-foreground transition-all duration-300"
+          >
+            Produzida com 
+            <motion.span
+              animate={{ color: ["#10b981", "#3b82f6", "#f97316", "#10b981"] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              className="text-lg leading-none filter drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]"
+            >
+              ❤
+            </motion.span> 
+            por{" "}
+            <span className="text-foreground font-black tracking-wider group-hover:text-primary transition-colors">
+              CAMALY
+            </span>
+          </a>
         </div>
       </div>
     </footer>
