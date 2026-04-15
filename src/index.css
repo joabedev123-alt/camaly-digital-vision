@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -43,11 +43,23 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 8rem; /* compensar header h-32 */
+    scroll-padding-top: 5rem; /* compensar header mobile h-20 */
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 7rem; /* compensar header desktop h-28 */
+    }
   }
 
   section[id] {
-    scroll-margin-top: 8rem;
+    scroll-margin-top: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    section[id] {
+      scroll-margin-top: 7rem;
+    }
   }
 }
 
@@ -99,4 +111,33 @@
   49% { transform: translateX(calc(100% + 100px)) scaleX(1); }
   50% { transform: translateX(calc(100% + 100px)) scaleX(-1); }
   100% { transform: translateX(-100px) scaleX(-1); }
+}
+
+/* ── Shimmer sweep lento no título do hero ── */
+@keyframes shimmer-sweep {
+  0%   { background-position: 100% center; }
+  100% { background-position:   0% center; }
+}
+
+.hero-title-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    hsl( 28, 100%, 55%)  0%,    /* laranja */
+    hsl(  0,   0%,  4%) 18%,    /* preto */
+    hsl(210, 100%, 60%) 36%,    /* azul */
+    hsl( 48, 100%, 55%) 55%,    /* amarelo */
+    hsl(  0,  84%, 58%) 73%,    /* vermelho */
+    hsl(  0,   0%, 96%) 92%,    /* branco final */
+    hsl(  0,   0%, 96%) 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation-name: shimmer-sweep;
+  animation-duration: 3.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }

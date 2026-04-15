@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { WhatsAppIconFlat } from "./WhatsAppIcon";
 
 const menuItems = [
   { label: "Início", href: "#inicio" },
@@ -30,13 +31,13 @@ export const Header = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease }}
-        className={`fixed top-0 left-0 right-0 z-50 h-32 px-8 md:px-16 flex items-center justify-between transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 h-20 md:h-28 px-4 md:px-12 flex items-center justify-between transition-all duration-500 ${
           scrolled
             ? "glass"
             : "bg-transparent"
         }`}
       >
-        <a href="#inicio" className="font-display text-3xl font-bold tracking-tight text-foreground">
+        <a href="#inicio" className="font-display text-xl md:text-2xl font-bold tracking-tight text-foreground">
           Camaly<span className="text-primary">.</span>
         </a>
 
@@ -60,14 +61,15 @@ export const Header = () => {
             rel="noopener noreferrer"
             className="hidden md:flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-display text-base font-semibold glow-primary hover:scale-105 transition-transform duration-200"
           >
-            <MessageCircle className="w-5 h-5" />
+            <WhatsAppIconFlat size={22} className="text-primary-foreground" />
             WhatsApp
           </a>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden text-foreground"
+            aria-label="Abrir menu"
           >
-            {mobileOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </motion.header>
@@ -79,7 +81,7 @@ export const Header = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease }}
-            className="fixed inset-0 z-40 pt-32 glass"
+            className="fixed inset-0 z-40 pt-20 glass"
           >
             <nav className="flex flex-col items-center gap-6 pt-12">
               {menuItems.map((item, i) => (
@@ -99,9 +101,9 @@ export const Header = () => {
                 href="https://wa.me/5500000000000"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-display font-semibold glow-primary"
+                className="mt-4 flex items-center gap-2.5 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-display font-semibold glow-primary"
               >
-                <MessageCircle className="w-5 h-5" />
+                <WhatsAppIconFlat size={22} className="text-primary-foreground" />
                 WhatsApp
               </a>
             </nav>

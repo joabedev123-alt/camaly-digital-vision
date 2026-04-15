@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import { WhatsAppIconFlat } from "./WhatsAppIcon";
 import ctaVideo from "@/assets/cta-video.mp4.asset.json";
 import chameleonEye from "@/assets/chameleon-eye.png";
 import { FloatingParticles } from "./FloatingParticles";
@@ -70,9 +70,9 @@ export const FinalCTA = () => {
             href="https://wa.me/5500000000000"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-10 py-4 rounded-lg bg-primary text-primary-foreground font-display font-semibold text-lg glow-primary hover:scale-105 transition-transform duration-200 flex items-center gap-2"
+            className="px-10 py-4 rounded-lg bg-primary text-primary-foreground font-display font-semibold text-lg glow-primary hover:scale-105 transition-transform duration-200 flex items-center gap-2.5"
           >
-            <MessageCircle className="w-5 h-5" />
+            <WhatsAppIconFlat size={24} className="text-primary-foreground" />
             Fale conosco
           </a>
           <a
