@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { WhatsAppIconFlat } from "./WhatsAppIcon";
-import heroChameleon from "@/assets/hero-chameleon.png";
-import logoFrente from "@/assets/Logo frente 03-Photoroom.png";
+import heroChameleon from "@/assets/IMG/hero-chameleon.png";
+import logoFrente from "@/assets/IMG/Logo frente 03-Photoroom.png";
 import { FloatingParticles } from "./FloatingParticles";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -214,7 +214,7 @@ export const HeroSection = () => {
              * Container sem max-w fixo → texto centraliza corretamente
              * independente do tamanho do viewport
              */}
-            <div className="w-full mx-auto px-4 sm:px-6 md:px-16 pt-24 pb-16 md:py-40 flex flex-col items-center text-center">
+            <div className="w-full mx-auto px-4 sm:px-6 md:px-16 pt-32 pb-16 md:py-40 flex flex-col items-center text-center">
 
               {/* Badge */}
               <motion.span

@@ -121,15 +121,15 @@ const DifferentialCard = ({
             }}
           />
 
-          <div className="relative z-10 flex gap-6 items-start w-full">
+          <div className="relative z-10 flex flex-col sm:flex-row gap-5 sm:gap-6 items-center sm:items-start w-full text-center sm:text-left">
             {/* Ícone grande */}
             <motion.div
               animate={{ rotate: hovered ? 360 : 0 }}
               transition={{ duration: 0.65, ease: "easeInOut" }}
               className="shrink-0 rounded-2xl flex items-center justify-center"
               style={{
-                width:      72,
-                height:     72,
+                width:      window.innerWidth < 768 ? 64 : 72,
+                height:     window.innerWidth < 768 ? 64 : 72,
                 background: theme.bg,
                 border:     `2px solid ${theme.border}`,
                 boxShadow:  hovered ? `0 0 20px 4px ${theme.color}55` : "none",
@@ -137,11 +137,11 @@ const DifferentialCard = ({
               }}
             >
               <Icon
-                style={{ width: 34, height: 34, color: theme.color }}
+                style={{ width: window.innerWidth < 768 ? 28 : 34, height: window.innerWidth < 768 ? 28 : 34, color: theme.color }}
                 strokeWidth={1.6}
               />
             </motion.div>
-
+[diff_block_end]
             {/* Textos */}
             <div className="flex flex-col gap-2 pt-1">
               <h3

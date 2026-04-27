@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import spaceParkImg from "@/assets/plataforma/space park.png";
-import zapyImg from "@/assets/plataforma/zapy.png";
-import megaPixImg from "@/assets/plataforma/mega pix.png";
-import portfolioEcommerce1 from "@/assets/portfolio-ecommerce-1.png";
-import portfolioEcommerce2 from "@/assets/portfolio-ecommerce-2.png";
-import portfolioEcommerce3 from "@/assets/portfolio-ecommerce-3.png";
-import portfolioLanding1 from "@/assets/portfolio-landing-1.png";
-import portfolioLanding2 from "@/assets/portfolio-landing-2.png";
-import portfolioLanding3 from "@/assets/portfolio-landing-3.png";
-import portfolioInstitucional1 from "@/assets/portfolio-institucional-1.png";
-import portfolioInstitucional2 from "@/assets/portfolio-institucional-2.png";
-import portfolioInstitucional3 from "@/assets/portfolio-institucional-3.png";
-import portfolioImobiliaria1 from "@/assets/portfolio-imobiliaria-1.png";
-import portfolioImobiliaria2 from "@/assets/portfolio-imobiliaria-2.png";
-import portfolioImobiliaria3 from "@/assets/portfolio-imobiliaria-3.png";
+import spaceParkImg from "@/assets/Plataforma/space park.png";
+import zapyImg from "@/assets/Plataforma/zapy.png";
+import megaPixImg from "@/assets/Plataforma/mega pix.png";
+import portfolioEcommerce1 from "@/assets/IMG/portfolio-ecommerce-1.png";
+import portfolioEcommerce2 from "@/assets/IMG/portfolio-ecommerce-2.png";
+import portfolioEcommerce3 from "@/assets/IMG/portfolio-ecommerce-3.png";
+import portfolioLanding1 from "@/assets/IMG/portfolio-landing-1.png";
+import portfolioLanding2 from "@/assets/IMG/portfolio-landing-2.png";
+import portfolioLanding3 from "@/assets/IMG/portfolio-landing-3.png";
+import portfolioInstitucional1 from "@/assets/IMG/portfolio-institucional-1.png";
+import portfolioInstitucional2 from "@/assets/IMG/portfolio-institucional-2.png";
+import portfolioInstitucional3 from "@/assets/IMG/portfolio-institucional-3.png";
+import portfolioImobiliaria1 from "@/assets/IMG/portfolio-imobiliaria-1.png";
+import portfolioImobiliaria2 from "@/assets/IMG/portfolio-imobiliaria-2.png";
+import portfolioImobiliaria3 from "@/assets/IMG/portfolio-imobiliaria-3.png";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -26,12 +26,7 @@ const projects = [
       { image: megaPixImg, url: "https://megapixx.net" }
     ], 
     title: "Sistemas e Aplicações", 
-    category: "🧩 (Plataforma)", 
-    links: [
-      { label: "01. estacionamentospacepark.com.br", url: "https://www.estacionamentospacepark.com.br" },
-      { label: "02. zapybr.com.br", url: "https://zapybr.com.br" },
-      { label: "03. megapixx.net", url: "https://megapixx.net" }
-    ]
+    category: "Plataforma", 
   },
   { 
     images: [portfolioEcommerce1, portfolioEcommerce2, portfolioEcommerce3], 
@@ -159,24 +154,9 @@ export const ProjectsSection = () => {
                       <span className="text-[10px] md:text-xs font-display uppercase tracking-[0.3em] text-primary mb-3 block opacity-90">
                         {project.category}
                       </span>
-                      <h3 className="font-display font-bold text-foreground text-3xl md:text-6xl leading-[1.1] tracking-tighter group-hover:text-primary transition-colors duration-300">
+                      <h3 className="font-display font-bold text-foreground text-2xl md:text-5xl leading-[1.1] tracking-tighter group-hover:text-primary transition-colors duration-300">
                         {project.title}
                       </h3>
-                      
-                      <div className="mt-8 flex flex-wrap gap-x-10 gap-y-4 justify-center">
-                        {(project as any).links?.map((link: any, idx: number) => (
-                          <a 
-                            key={idx} 
-                            href={link.url} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-sm md:text-base text-foreground/60 hover:text-primary transition-colors duration-300 flex items-center gap-2"
-                          >
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-                            {link.label}
-                          </a>
-                        ))}
-                      </div>
                     </div>
 
                     <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-6 md:gap-8 pb-4 -mx-6 px-6 md:mx-0 md:px-0">

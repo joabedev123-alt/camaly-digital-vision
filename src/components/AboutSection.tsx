@@ -1,13 +1,16 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import chameleonSilhouette from "@/assets/chameleon-silhouette.png";
+import chameleonSilhouette from "@/assets/IMG/chameleon-silhouette.png";
+import jonatanImg from "@/assets/socios/Jonatan Drumond.png";
+import joabeImg from "@/assets/socios/Joabe Avila.png";
+import igorImg from "@/assets/socios/Igor Martins.png";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const team = [
-  { initial: "J", name: "Jonatan Drumond", role: "CEO", color: "hsl(162,100%,42%)" },
-  { initial: "J", name: "Joabe Ávila",     role: "CPO", color: "hsl(28,100%,55%)"  },
-  { initial: "I", name: "Igor Martins",    role: "CIO", color: "hsl(210,100%,60%)" },
+  { initial: "J", name: "Jonatan Drumond", role: "CEO", color: "hsl(162,100%,42%)", image: jonatanImg },
+  { initial: "J", name: "Joabe Avila",     role: "CPO", color: "hsl(28,100%,55%)",  image: joabeImg },
+  { initial: "I", name: "Igor Martins",    role: "CIO", color: "hsl(210,100%,60%)", image: igorImg },
 ];
 
 
@@ -23,42 +26,45 @@ const PI = { x: 302, y: 340 };   // Igor    — inferior direito
 const SJ = 148;  // diâmetro do avatar Jonatan
 const SM = 130;  // diâmetro dos avatares Joabe e Igor
 
-/* 5 voltas × 3 posições = 15 keyframes por eixo */
-const lap5 = (a: number, b: number, c: number) =>
-  Array.from({ length: 5 }).flatMap(() => [a, b, c]);
+/* 2 voltas × 3 posições = 6 keyframes por eixo */
+const lap2 = (a: number, b: number, c: number) =>
+  Array.from({ length: 2 }).flatMap(() => [a, b, c]);
 
-const TIMES_15 = Array.from({ length: 15 }, (_, i) => i / 14);
+const TIMES_6 = Array.from({ length: 6 }, (_, i) => i / 5);
 
 const MEMBERS = [
   {
     id: "jonatan", label: "Jonatan Drumond", ini: "J", role: "CEO",
+    image: jonatanImg,
     color: "hsl(162,100%,42%)",
     size:  SJ,
     fLeft: PJ.x - SJ / 2,
     fTop:  PJ.y - SJ / 2,
-    // Horário: Igor → Joabe → Casa (x5)
-    xK: lap5(PI.x - PJ.x, PA.x - PJ.x, 0),
-    yK: lap5(PI.y - PJ.y, PA.y - PJ.y, 0),
+    // Horário: Igor → Joabe → Casa (x2)
+    xK: lap2(PI.x - PJ.x, PA.x - PJ.x, 0),
+    yK: lap2(PI.y - PJ.y, PA.y - PJ.y, 0),
   },
   {
-    id: "joabe", label: "Joabe Ávila", ini: "J", role: "CPO",
+    id: "joabe", label: "Joabe Avila", ini: "J", role: "CPO",
+    image: joabeImg,
     color: "hsl(28,100%,55%)",
     size:  SM,
     fLeft: PA.x - SM / 2,
     fTop:  PA.y - SM / 2,
-    // Horário: Jonatan → Igor → Casa (x5)
-    xK: lap5(PJ.x - PA.x, PI.x - PA.x, 0),
-    yK: lap5(PJ.y - PA.y, PI.y - PA.y, 0),
+    // Horário: Jonatan → Igor → Casa (x2)
+    xK: lap2(PJ.x - PA.x, PI.x - PA.x, 0),
+    yK: lap2(PJ.y - PA.y, PI.y - PA.y, 0),
   },
   {
     id: "igor", label: "Igor Martins", ini: "I", role: "CIO",
+    image: igorImg,
     color: "hsl(210,100%,60%)",
     size:  SM,
     fLeft: PI.x - SM / 2,
     fTop:  PI.y - SM / 2,
-    // Horário: Joabe → Jonatan → Casa (x5)
-    xK: lap5(PA.x - PI.x, PJ.x - PI.x, 0),
-    yK: lap5(PA.y - PI.y, PJ.y - PI.y, 0),
+    // Horário: Joabe → Jonatan → Casa (x2)
+    xK: lap2(PA.x - PI.x, PJ.x - PI.x, 0),
+    yK: lap2(PA.y - PI.y, PJ.y - PI.y, 0),
   },
 ];
 
@@ -131,15 +137,15 @@ const TeamDiagram = ({ inView }: { inView: boolean }) => {
                 x:       m.xK,
                 y:       m.yK,
                 // opacidade aparece rápido no início, permanece 1
-                opacity: [0, 1, ...Array(13).fill(1)],
-                scale:   [0.75, 0.9, ...Array(12).fill(0.92), 0.96, 1],
+                opacity: [0, 1, 1, 1, 1, 1],
+                scale:   [0.75, 0.9, 0.92, 0.94, 0.96, 1],
               }
             : { x: m.xK[0], y: m.yK[0], opacity: 0, scale: 0.75 }
           }
           transition={{
-            duration: 1.8,          // 5 voltas em 1.8s ≈ 0.36s por volta
+            duration: 2.2,          // Menos voltas, tempo ajustado
             ease:     "easeInOut",
-            times:    TIMES_15,
+            times:    TIMES_6,
             delay:    0.15,
           }}
         >
@@ -160,7 +166,12 @@ const TeamDiagram = ({ inView }: { inView: boolean }) => {
               className="absolute top-0 left-0 right-0 h-1/2 rounded-t-full"
               style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.15), transparent)" }}
             />
-            <span className="relative z-10">{m.ini}</span>
+            <img 
+              src={(m as any).image} 
+              alt={m.label}
+              className="w-full h-full object-cover relative z-10"
+              style={{ filter: "contrast(1.05) brightness(1.02)" }}
+            />
           </div>
 
           {/* Label */}
@@ -317,7 +328,7 @@ export const AboutSection = () => {
                         boxShadow:   `0 0 12px ${m.color}44`,
                       }}
                     >
-                      {m.initial}
+                      <img src={m.image} alt={m.name} className="w-full h-full object-cover" />
                     </div>
                     <div>
                       <p className="text-xs font-bold leading-none" style={{ color: m.color }}>{m.name}</p>

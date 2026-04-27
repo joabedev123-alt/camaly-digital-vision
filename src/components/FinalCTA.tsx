@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { WhatsAppIconFlat } from "./WhatsAppIcon";
-import ctaVideo from "@/assets/cta-video.mp4.asset.json";
+import ctaVideo from "@/assets/IMG/cta-video.mp4.asset.json";
 import { FloatingParticles } from "./FloatingParticles";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -14,9 +14,8 @@ const AnimatedTitle = ({ inView }: { inView: boolean }) => {
     <h2
       className="font-display font-black tracking-tighter text-center"
       style={{
-        fontSize:   "clamp(0.85rem, 4.5vw, 2.6rem)",
-        lineHeight: 1.1,
-        whiteSpace: "nowrap",
+        fontSize:   "clamp(1.5rem, 5vw, 3.5rem)", // Aumentando um pouco a fonte
+        lineHeight: 1.2,
       }}
     >
       {/* Palavras normais */}
