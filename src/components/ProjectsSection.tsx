@@ -9,9 +9,9 @@ import portfolioEcommerce3 from "@/assets/IMG/portfolio-ecommerce-3.png";
 import andersonImg from "@/assets/landing page/anderson .png";
 import landscapImg from "@/assets/landing page/landscap.png";
 import thaynaraImg from "@/assets/landing page/thaynara.png";
-import domMiguelImg from "@/assets/institucional/dommiguel.png";
-import genesisImg from "@/assets/institucional/genesis tatoo.png";
-import starKaseImg from "@/assets/institucional/star kase.png";
+import domMiguelImg from "@/assets/Institucional/dommiguel.png";
+import genesisImg from "@/assets/Institucional/genesis tatoo.png";
+import starKaseImg from "@/assets/Institucional/star kase.png";
 import douglasImg from "@/assets/Imobiliario/douglas.png";
 import mansaoImg from "@/assets/Imobiliario/mansao venda nova.png";
 
