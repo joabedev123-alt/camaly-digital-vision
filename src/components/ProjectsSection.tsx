@@ -6,15 +6,14 @@ import megaPixImg from "@/assets/Plataforma/mega pix.png";
 import portfolioEcommerce1 from "@/assets/IMG/portfolio-ecommerce-1.png";
 import portfolioEcommerce2 from "@/assets/IMG/portfolio-ecommerce-2.png";
 import portfolioEcommerce3 from "@/assets/IMG/portfolio-ecommerce-3.png";
-import portfolioLanding1 from "@/assets/IMG/portfolio-landing-1.png";
-import portfolioLanding2 from "@/assets/IMG/portfolio-landing-2.png";
-import portfolioLanding3 from "@/assets/IMG/portfolio-landing-3.png";
-import portfolioInstitucional1 from "@/assets/IMG/portfolio-institucional-1.png";
-import portfolioInstitucional2 from "@/assets/IMG/portfolio-institucional-2.png";
-import portfolioInstitucional3 from "@/assets/IMG/portfolio-institucional-3.png";
-import portfolioImobiliaria1 from "@/assets/IMG/portfolio-imobiliaria-1.png";
-import portfolioImobiliaria2 from "@/assets/IMG/portfolio-imobiliaria-2.png";
-import portfolioImobiliaria3 from "@/assets/IMG/portfolio-imobiliaria-3.png";
+import andersonImg from "@/assets/landing page/anderson .png";
+import landscapImg from "@/assets/landing page/landscap.png";
+import thaynaraImg from "@/assets/landing page/thaynara.png";
+import domMiguelImg from "@/assets/institucional/dommiguel.png";
+import genesisImg from "@/assets/institucional/genesis tatoo.png";
+import starKaseImg from "@/assets/institucional/star kase.png";
+import douglasImg from "@/assets/Imobiliario/douglas.png";
+import mansaoImg from "@/assets/Imobiliario/mansao venda nova.png";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -29,28 +28,39 @@ const projects = [
     category: "Plataforma", 
   },
   { 
-    images: [portfolioEcommerce1, portfolioEcommerce2, portfolioEcommerce3], 
+    items: [
+      { image: portfolioEcommerce1, url: "#" },
+      { image: portfolioEcommerce2, url: "#" },
+      { image: portfolioEcommerce3, url: "#" }
+    ], 
     title: "Lojas Virtuais de Alta Conversão", 
     category: "(Ecommerce)", 
-    href: "#" 
   },
   { 
-    images: [portfolioLanding1, portfolioLanding2, portfolioLanding3], 
+    items: [
+      { image: andersonImg, url: "http://andersonsilvatreinador.com.br" },
+      { image: landscapImg, url: "https://mdlandiscapellc.com" },
+      { image: thaynaraImg, url: "https://thaynaravertelo.com.br" }
+    ], 
     title: "Páginas de Venda e Captura", 
     category: "(Landing Page)", 
-    href: "#" 
   },
   { 
-    images: [portfolioInstitucional1, portfolioInstitucional2, portfolioInstitucional3], 
+    items: [
+      { image: domMiguelImg, url: "https://dommiguelindustria.com.br" },
+      { image: genesisImg, url: "https://www.genesistattoo.com.br" },
+      { image: starKaseImg, url: "https://starcases.com.br" }
+    ], 
     title: "Identidade Digital Profissional", 
     category: "(Institucional)", 
-    href: "#" 
   },
   { 
-    images: [portfolioImobiliaria1, portfolioImobiliaria2, portfolioImobiliaria3], 
+    items: [
+      { image: douglasImg, url: "https://douglasazevedoimoveis.com.br" },
+      { image: mansaoImg, url: "https://mansaovendanova.com.br" }
+    ], 
     title: "Soluções para o Mercado Imobiliário", 
     category: "Imobiliária e Aluguel", 
-    href: "#" 
   },
 ];
 
@@ -134,21 +144,20 @@ export const ProjectsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, i) => {
-            const isFeatured = i === 0;
-            const hasLinks = "links" in project;
-            const Wrapper = isFeatured ? motion.div : (hasLinks ? motion.div : motion.a);
+            const hasItems = "items" in project;
+            const Wrapper = hasItems ? motion.div : motion.a;
             
             return (
               <Wrapper
                 key={project.title}
-                {...(isFeatured || hasLinks ? {} : { href: (project as any).href })}
+                {...(hasItems ? {} : { href: (project as any).href })}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, ease, delay: i * 0.1 }}
-                className={`group block ${isFeatured ? 'lg:col-span-3 mb-20' : (hasLinks ? 'cursor-default mb-12' : 'cursor-pointer mb-12')}`}
+                className={`group block ${hasItems ? 'lg:col-span-3 mb-20' : 'cursor-pointer mb-12'}`}
               >
-                {isFeatured ? (
+                {hasItems ? (
                   <div className="space-y-12">
                     <div className="px-1 text-center">
                       <span className="text-[10px] md:text-xs font-display uppercase tracking-[0.3em] text-primary mb-3 block opacity-90">
