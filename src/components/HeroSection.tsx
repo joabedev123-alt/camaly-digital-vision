@@ -1,9 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { WhatsAppIconFlat } from "./WhatsAppIcon";
-import heroChameleon from "@/assets/IMG/hero-chameleon.png";
-import logoFrente from "@/assets/IMG/Logo frente 03-Photoroom.png";
-import { FloatingParticles } from "./FloatingParticles";
+import { HeroBackground } from "./HeroBackground";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -11,32 +9,29 @@ const INTRO_MS   = 6300;
 const LOGO_MS    = 1000;  // fixação da logo (ms) — total ~2s com os fades
 const CONTENT_MS = 6800;
 
-/** Sequência de cores que passa em CADA letra do título */
+/** Sequência de cores que passa em CADA letra do título — reduzida para 3 cores */
 const COLORS = [
   "hsl( 28, 100%, 55%)",  // 🟠 laranja
-  "hsl(  0,   0%,  5%)",  // ⚫ preto
   "hsl(210, 100%, 60%)",  // 🔵 azul
-  "hsl( 48, 100%, 55%)",  // 🟡 amarelo
-  "hsl(  0,  84%, 58%)",  // 🔴 vermelho
   "hsl(  0,   0%, 96%)",  // ⬜ branco — estado final
 ] as const;
-const TIMES      = [0, 0.18, 0.38, 0.58, 0.78, 1.0];
+const TIMES      = [0, 0.5, 1.0];
 
 const TITLE     = "Não espere sua empresa falir para criar um site!";
 const CHARS     = [...TITLE];                     // 48 chars, unicode-safe
-const CHAR_DUR  = 2.8;                            // segundos por letra
-const STAGGER   = 1.6 / CHARS.length;             // spread de 1.6s entre primeira e última
-const SHIMMER_MS = Math.ceil((CHAR_DUR + 1.6) * 1000) + 600; // ~5000ms
+const CHAR_DUR  = 6.5;                            // segundos por letra (bem mais lento)
+const STAGGER   = 3.5 / CHARS.length;             // spread de 3.5s entre primeira e última
+const SHIMMER_MS = Math.ceil((CHAR_DUR + 3.5) * 1000) + 1000; // ~11000ms
 
 /** Classes exatamente iguais para base e overlay — garantem alinhamento pixel-perfect */
 const H1_CLASS =
   "font-display font-bold tracking-tighter leading-tight text-center w-full block";
-const H1_STYLE = { fontSize: "clamp(1.8rem, 4.5vw, 4rem)", margin: 0 } as const;
+const H1_STYLE = { fontSize: "clamp(1.7rem, 9vw, 4rem)", margin: 0 } as const;
 
 export const HeroSection = () => {
   const [replay,      setReplay     ] = useState(0);
-  const [phase,       setPhase      ] = useState<"intro" | "logo" | "content">("intro");
-  const [showShimmer, setShowShimmer] = useState(false);
+  const [phase,       setPhase      ] = useState<"intro" | "logo" | "content">("content");
+  const [showShimmer, setShowShimmer] = useState(true);
 
   const sectionRef  = useRef<HTMLElement>(null);
   const initialObs  = useRef(true);
@@ -45,28 +40,15 @@ export const HeroSection = () => {
 
   /* ── Reinicia a sequência cada vez que replay muda ── */
   useEffect(() => {
-    setPhase("intro");
-    setShowShimmer(false);
-
-    // Após intro do camaleão → mostra a logo por 2s
-    const logoTimer = setTimeout(() => {
-      setPhase("logo");
-    }, INTRO_MS);
-
-    // Após 2s da logo → mostra conteúdo + shimmer
-    const contentTimer = setTimeout(() => {
-      setPhase("content");
-      setShowShimmer(true);
-    }, INTRO_MS + LOGO_MS);
+    setPhase("content");
+    setShowShimmer(true);
 
     const shimmerTimer = setTimeout(
       () => setShowShimmer(false),
-      INTRO_MS + LOGO_MS + SHIMMER_MS,
+      SHIMMER_MS,
     );
 
     return () => {
-      clearTimeout(logoTimer);
-      clearTimeout(contentTimer);
       clearTimeout(shimmerTimer);
     };
   }, [replay]);
@@ -100,90 +82,11 @@ export const HeroSection = () => {
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Fundo */}
-      <div className="absolute inset-0 bg-background" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-primary/10 blur-[140px] animate-pulse-glow pointer-events-none" />
-      <FloatingParticles count={20} />
+      {/* Novo Fundo Dinâmico com Meteoros e Globo */}
+      <HeroBackground />
 
-      {/* ══════════════════════════════════
-          FASE 1 — INTRO: camaleão cresce
-         ══════════════════════════════════ */}
-      <AnimatePresence mode="wait">
-        {phase === "intro" && (
-          <motion.div
-            key={`intro-${replay}`}
-            className="absolute inset-0 z-20 bg-background flex items-center justify-center"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease }}
-          >
-            <motion.div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(circle at center, hsla(162,100%,42%,0.20) 0%, transparent 65%)",
-              }}
-              animate={{ opacity: [0.3, 1, 0.3] }}
-              transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-              className="absolute inset-0"
-              style={{ transformOrigin: "center center" }}
-              animate={{
-                scale:   [0.05, 0.05, 1,    1,    1   ],
-                opacity: [0,    1,    1,    1,    0   ],
-              }}
-              transition={{
-                duration: INTRO_MS / 1000,
-                times:    [0,   0.048, 0.397, 0.873, 1],
-                ease:     "easeInOut",
-              }}
-            >
-              <img
-                src={heroChameleon}
-                alt="Camaleão Camaly"
-                className="w-full h-full object-cover object-center"
-                style={{ filter: "drop-shadow(0 0 80px hsla(162,100%,42%,0.45))" }}
-              />
-            </motion.div>
-            <motion.div
-              className="absolute inset-0 bg-background pointer-events-none"
-              animate={{ opacity: [0, 0, 0, 0.5, 1] }}
-              transition={{
-                duration: INTRO_MS / 1000,
-                times:    [0, 0.048, 0.70, 0.92, 1],
-                ease:     "easeIn",
-              }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* ══════════════════════════════════
-          FASE 2 — LOGO CAMALY
-         ══════════════════════════════════ */}
-      <AnimatePresence mode="wait">
-        {phase === "logo" && (
-          <motion.div
-            key={`logo-${replay}`}
-            className="absolute inset-0 z-20 bg-background flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease }}
-          >
-            <motion.img
-              src={logoFrente}
-              alt="Camaly Digital"
-              className="w-[min(95vw,900px)] md:w-[min(85vw,1100px)] h-auto object-contain select-none"
-              initial={{ scale: 0.82, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 1.06, opacity: 0 }}
-              transition={{ duration: 0.4, ease }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* O conteúdo agora inicia diretamente com o novo fundo */}
 
       {/* ══════════════════════════════════
           FASE 3 — CONTEÚDO PRINCIPAL
@@ -197,18 +100,6 @@ export const HeroSection = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.9, ease }}
           >
-            {/* Camaleão sutil ao fundo — oculto no mobile para não poluir */}
-            <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none">
-              <motion.img
-                src={heroChameleon}
-                alt=""
-                aria-hidden
-                className="absolute right-0 top-1/2 -translate-y-1/2 w-[55vw] max-w-[680px] object-contain select-none"
-                initial={{ opacity: 0, x: 60 }}
-                animate={{ opacity: 0.09, x: 0 }}
-                transition={{ duration: 1.4, ease }}
-              />
-            </div>
 
             {/*
              * Container sem max-w fixo → texto centraliza corretamente
@@ -237,7 +128,7 @@ export const HeroSection = () => {
                 style={{ lineHeight: "1.15" }}
               >
                 {/* ① Base estática — branca, sempre visível */}
-                <h1 className={H1_CLASS + " text-foreground"} style={{ ...H1_STYLE, fontSize: "clamp(1.5rem, 6vw, 4rem)" }}>
+                <h1 className={H1_CLASS + " text-foreground"} style={{ ...H1_STYLE, fontSize: "clamp(1.7rem, 9vw, 4.2rem)" }}>
                   {TITLE}
                 </h1>
 
@@ -261,7 +152,7 @@ export const HeroSection = () => {
                        * Usamos <h1> aqui (mesmo elemento da base) para garantir
                        * que fonte, line-height e tamanho sejam byte-a-byte idênticos.
                        */}
-                      <h1 className={H1_CLASS} style={{ ...H1_STYLE, fontSize: "clamp(1.5rem, 6vw, 4rem)" }}>
+                      <h1 className={H1_CLASS} style={{ ...H1_STYLE, fontSize: "clamp(1.7rem, 9vw, 4.2rem)" }}>
                         {CHARS.map((char, i) => (
                           <motion.span
                             key={`${replay}-${i}`}
